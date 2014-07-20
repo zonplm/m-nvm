@@ -1,0 +1,31 @@
+HEAD
+src
+v*
+alias
+
+# For testing
+test/bak
+.urchin.log
+.urchin_stdout
+
+node_modules/
+
+.DS_Store
+current
+/test/fast/Aliases/Running "nvm alias <aliasname>" should list but one alias.
+/test/fast/Aliases/Running "nvm alias" should list all aliases.
+/test/fast/Listing versions/Running "nvm ls 0.2" should display only 0.2.x versions.
+/test/fast/Listing versions/Running "nvm ls foo" should return a nonzero exit code when not found
+/test/fast/Listing versions/Running "nvm ls" should display all installed versions.
+/test/fast/Listing versions/Running "nvm ls" should filter out ".nvm"
+/test/fast/Listing versions/Running "nvm ls" with node-like versioning vx.x.x should only list a matched version
+/test/fast/Running "nvm alias" should create a file in the alias directory.
+/test/fast/Running "nvm current" should display current nvm environment.
+/test/fast/Running "nvm deactivate" should unset the nvm environment variables.
+/test/fast/Running "nvm install" with an invalid version fails nicely
+/test/fast/Running "nvm unalias" should remove the alias file.
+/test/fast/Running "nvm uninstall" should remove the appropriate directory.
+/test/fast/Running "nvm unload" should unset all function and variables.
+/test/fast/Running "nvm use x" should create and change the "current" symlink
+/test/slow/nvm run/Running "nvm run 0.x" should work
+/test/slow/nvm run/Running "nvm run" should pick up .nvmrc version
