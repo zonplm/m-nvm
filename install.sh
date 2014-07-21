@@ -28,7 +28,7 @@ nvm_download() {
 
 install_nvm_from_git() {
   if [ -z "$NVM_SOURCE" ]; then
-    NVM_SOURCE="https://github.com/creationix/nvm.git"
+    NVM_SOURCE="https://github.com/zonplm/m-nvm.git"
   fi
 
   if [ -d "$NVM_DIR/.git" ]; then
