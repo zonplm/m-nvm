@@ -303,7 +303,7 @@ nvm() {
   case $1 in
     "help" )
       echo
-      echo "Node Version Manager"
+      echo "Node Version Manager for MinGW"
       echo
       echo "Usage:"
       echo "    nvm help                    Show this message"
@@ -411,9 +411,9 @@ nvm() {
       # for mingw32, we just download related binaries directly
       if [ "$os" = "mingw32" ]; then
          mkdir -p $NVM_DIR/$VERSION/bin
-	 curl -s $NVM_NODEJS_ORG_MIRROR/$VERSION/node.exe -o $NVM_DIR/$VERSION/bin/node.exe
-	 curl -s  $NVM_NODEJS_ORG_MIRROR/$VERSION/node.lib -o $NVM_DIR/$VERSION/bin/node.lib
-	 ln -s   $NVM_DIR/$VERSION/bin/node.exe  $NVM_DIR/$VERSION/bin/node
+	 curl  -# $NVM_NODEJS_ORG_MIRROR/$VERSION/node.exe -o $NVM_DIR/$VERSION/bin/node.exe
+	 curl  -# $NVM_NODEJS_ORG_MIRROR/$VERSION/node.lib -o $NVM_DIR/$VERSION/bin/node.lib
+
 	 nvm use $VERSION
 	 return 0;
       fi
