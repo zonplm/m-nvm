@@ -1,18 +1,16 @@
-# Node Version Manager [![Build Status](https://travis-ci.org/creationix/nvm.svg?branch=master)][3]
-
 ## Installation
 
-First you'll need to make sure your system has a c++ compiler.  For OSX, XCode will work, for Ubuntu, the build-essential and libssl-dev packages work.
+Make sure you have Git for Windows installed: http://git-scm.com/download/win
 
 ### Install script
 
 To install you could use the [install script][2] using cURL:
 
-    curl https://raw.githubusercontent.com/creationix/nvm/v0.11.1/install.sh | bash
+    curl https://raw.githubusercontent.com/zonplm/m-nvm/master/install.sh | bash
 
 or Wget:
 
-    wget -qO- https://raw.githubusercontent.com/creationix/nvm/v0.11.1/install.sh | bash
+    wget -qO- https://raw.githubusercontent.com/m-nvm/master/install.sh | bash
 
 <sub>The script clones the nvm repository to `~/.nvm` and adds the source line to your profile (`~/.bash_profile`, `~/.zshrc` or `~/.profile`).</sub>
 
@@ -26,7 +24,7 @@ For manual install create a folder somewhere in your filesystem with the `nvm.sh
 
 Or if you have `git` installed, then just clone it:
 
-    git clone https://github.com/creationix/nvm.git ~/.nvm
+    git clone https://github.com/zonplm/m-nvm.git ~/.nvm
 
 To activate nvm, you need to source it from your shell:
 
@@ -77,9 +75,11 @@ To use a mirror of the node binaries, set `$NVM_NODEJS_ORG_MIRROR`:
 
 ## License
 
-nvm is released under the MIT license.
+m-nvm is released under the MIT license.
+The MinGW32 Enhancement:
+Copyright (c) 2014 Yong Zhao
 
-
+The original nvm:
 Copyright (C) 2010-2014 Tim Caswell
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
@@ -144,26 +144,8 @@ nvm uninstall
 	$ nvm uninstall [tab][tab]
 	my_alias        default        v0.6.21        v0.8.26       v0.10.28
 
-## Problems
-
-If you try to install a node version and the installation fails, be sure to delete the node downloads from src (~/.nvm/src/) or you might get an error when trying to reinstall them again or you might get an error like the following:
-
-    curl: (33) HTTP server doesn't seem to support byte ranges. Cannot resume.
-
-Where's my 'sudo node'? Checkout this link:
-
-https://github.com/creationix/nvm/issues/43
-
-on Arch Linux and other systems using python3 by default, before running *install* you need to
-
-      export PYTHON=python2
-
-After the v0.8.6 release of node, nvm tries to install from binary packages. But in some systems, the official binary packages don't work due to incompatibility of shared libs. In such cases, use `-s` option to force install from source:
-
-    nvm install -s 0.8.6
 
 [1]: https://github.com/creationix/nvm.git
 [2]: https://github.com/creationix/nvm/blob/v0.11.1/install.sh
-[3]: https://travis-ci.org/creationix/nvm
 [Urchin]: https://github.com/scraperwiki/urchin
 
