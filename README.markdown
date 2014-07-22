@@ -4,7 +4,9 @@ Make sure you have Git for Windows installed: http://git-scm.com/download/win
 
 ### Install script
 
-To install you could use the [install script][2] using cURL:
+To install you could use the install.sh script.
+
+using cURL:
 
     curl https://raw.githubusercontent.com/zonplm/m-nvm/master/install.sh | bash
 
