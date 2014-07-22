@@ -49,7 +49,7 @@ install_nvm_from_git() {
 
 install_nvm_as_script() {
   if [ -z "$NVM_SOURCE" ]; then
-    NVM_SOURCE="https://raw.githubusercontent.com/creationix/nvm/v0.11.1/nvm.sh"
+    NVM_SOURCE="https://raw.githubusercontent.com/zonplm/m-nvm/master/nvm.sh"
   fi
 
   # Downloading to $NVM_DIR

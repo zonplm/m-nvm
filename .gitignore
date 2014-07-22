@@ -29,3 +29,5 @@ current
 /test/fast/Running "nvm use x" should create and change the "current" symlink
 /test/slow/nvm run/Running "nvm run 0.x" should work
 /test/slow/nvm run/Running "nvm run" should pick up .nvmrc version
+
+*.sh~

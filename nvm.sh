@@ -1,3 +1,8 @@
+# Node Version Manger for MinGW
+# by Yong Zhao <zonplm@gmail.com>
+#
+# based on
+# 
 # Node Version Manager
 # Implemented as a POSIX-compliant function
 # Should work on sh, dash, bash, ksh, zsh
