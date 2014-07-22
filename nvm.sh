@@ -8,6 +8,18 @@
 
 NVM_SCRIPT_SOURCE="$_"
 
+is_mingw32() {
+  local uname=`uname -a`
+  case $uname in
+    MINGW32*)
+	    return 0
+	    ;;
+    *)
+	    return 1
+	    ;;
+  esac
+}
+
 nvm_has() {
   type "$1" > /dev/null 2>&1
 }
@@ -184,17 +196,28 @@ nvm_ls_remote() {
   local PATTERN
   PATTERN=$1
   local VERSIONS
-  local GREP_OPTIONS
   GREP_OPTIONS=''
   if [ -n "$PATTERN" ]; then
     PATTERN=`nvm_format_version "$PATTERN"`
   else
     PATTERN=".*"
   fi
-  VERSIONS=`nvm_download -s $NVM_NODEJS_ORG_MIRROR/ -o - \
+  
+  if [ is_mingw32 ]; then
+    VERSIONS=`nvm_download -s $NVM_NODEJS_ORG_MIRROR/ -o - \
+              | \egrep 'v[0-9]+\.[0-9]+\.[0-9]+' \
+              | grep -v tar.gz \
+	      | awk -F"\>" '{print $2}' \
+	      | awk -F"/" '{print $1}' \
+              | \grep -w "${PATTERN}" \
+              | sort -t. -u -k 1.2,1n -k 2,2n -k 3,3n`
+  else
+    VERSIONS=`nvm_download -s $NVM_NODEJS_ORG_MIRROR/ -o - \
               | \egrep -o 'v[0-9]+\.[0-9]+\.[0-9]+' \
               | \grep -w "${PATTERN}" \
               | sort -t. -u -k 1.2,1n -k 2,2n -k 3,3n`
+  fi
+
   if [ -z "$VERSIONS" ]; then
     echo "N/A"
     return 3
@@ -259,6 +282,7 @@ nvm() {
     Darwin\ *) os=darwin ;;
     SunOS\ *) os=sunos ;;
     FreeBSD\ *) os=freebsd ;;
+    MINGW32*) os=mingw32 ;;
   esac
   case "$uname" in
     *x86_64*) arch=x64 ;;
@@ -343,6 +367,11 @@ nvm() {
         nobinary=1
       fi
 
+      #always install binaries on MINGW32
+      if [ "$os" = "mingw32" ]; then
+        nobinary=0
+      fi
+
       provided_version=$1
       if [ -z "$provided_version" ]; then
         if [ $version_not_provided -ne 1 ]; then
@@ -372,6 +401,16 @@ nvm() {
       if [ "$VERSION" = "N/A" ]; then
         echo "Version '$provided_version' not found - try \`nvm ls-remote\` to browse available versions." >&2
         return 3
+      fi
+
+      # for mingw32, we just download related binaries directly
+      if [ "$os" = "mingw32" ]; then
+         mkdir -p $NVM_DIR/$VERSION/bin
+	 curl -s $NVM_NODEJS_ORG_MIRROR/$VERSION/node.exe -o $NVM_DIR/$VERSION/bin/node.exe
+	 curl -s  $NVM_NODEJS_ORG_MIRROR/$VERSION/node.lib -o $NVM_DIR/$VERSION/bin/node.lib
+	 ln -s   $NVM_DIR/$VERSION/bin/node.exe  $NVM_DIR/$VERSION/bin/node
+	 nvm use $VERSION
+	 return 0;
       fi
 
       # skip binary install if no binary option specified.
